@@ -32,6 +32,7 @@ namespace NEA_V1
         public int[,] checkPoints()
         {
             int[,] onLine = new int[100, 100];
+            Tokenizer myTokenizer = new Tokenizer(new StringReader(myStr));
 
             //The coordinates used to loop through will eventually be linked to a scale so they can be drawn!
             int arrTemp = 0;

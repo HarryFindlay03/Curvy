@@ -9,6 +9,7 @@ namespace NEA_V1
 {
 	public enum Token
 	{
+        Empty,
 		EOF,
 		Number,
 		Add,
@@ -18,14 +19,14 @@ namespace NEA_V1
 		subIn,
 		yVal,
 		Equals,
-		Exponent,
+		Exponent
 	}
 	
 	public class Tokenizer
 	{
 		TextReader myReader;
 		char currentChar;
-		Token currentToken;
+		Token currentToken = Token.Empty;
 		double number;
 
 		double testVal = 0;
@@ -135,6 +136,18 @@ namespace NEA_V1
 
 			throw new InvalidDataException($"Unexcpected Character:{currentChar}");
 		}
+
+        public List<Token> ReturnTokens()
+        {
+            List<Token> tokens = new List<Token>();
+            while(currentChar != '\0')
+            {
+                tokens.Add(currentToken);
+                NextToken();
+            }
+            tokens.Add(currentToken);
+            return tokens;
+        }
 	   
 	}
 	

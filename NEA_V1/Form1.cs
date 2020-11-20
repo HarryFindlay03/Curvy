@@ -22,13 +22,17 @@ namespace NEA_V1
         {
             PointChecker pCheck;
             string str = txtBox_input.Text;
+            //Stack<string> result = InfixToPostfix.infixToPostfix(str);
+            //InfixToPostfix.showStack(result);
 
-            Tokenizer tkn = new Tokenizer(new StringReader(str));
-            Console.WriteLine(Parser.Parse("3 * 5 + 2 * 5").Eval()); //mstest. 
-        
-            Console.WriteLine(Parser.Parse(str).Eval());
+            Tokenizer tokenizer = new Tokenizer(new StringReader(str));
+            List<Token> tokens = tokenizer.ReturnTokens();
 
-
+            for(int i = 0; i < tokens.Count; i++)
+            {
+                Console.WriteLine(tokens[i]);
+            }
+            /*
             if(String.IsNullOrEmpty(txt_xRange.Text) || String.IsNullOrEmpty(txt_yRange.Text))
             {
                 pCheck = new PointChecker(str);
@@ -41,7 +45,7 @@ namespace NEA_V1
             }
 
             pCheck.checkPoints();
-          
+            */
         }
     }
 }
