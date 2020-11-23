@@ -24,12 +24,12 @@ namespace NEA_V1
             string str = txtBox_input.Text;
 
             Tokenizer tokenizer = new Tokenizer(str);
-            List<Token> tokens = tokenizer.returnTokens();
 
-            for(int i = 0; i < tokens.Count; i++)
-            {
-                Console.WriteLine(tokens[i]); //Only doing the first value; set a variable as stack.Pop sorta ting. 
-            }
+            Parser p = new Parser(tokenizer);
+
+            Console.WriteLine("Final Answer: " + p.Eval());
+
+    
             /*
             PointChecker pCheck;
             if (String.IsNullOrEmpty(txt_xRange.Text) || String.IsNullOrEmpty(txt_yRange.Text))

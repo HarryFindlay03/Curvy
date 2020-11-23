@@ -7,7 +7,7 @@ using System.IO;
 
 namespace NEA_V1
 {
-    
+  /*  
     class PointChecker
     {
         string myStr;
@@ -55,7 +55,7 @@ namespace NEA_V1
             }
             return onLine;
 
-            /*
+            
             How the above bit of code works. 
             y = 2x
 
@@ -64,7 +64,8 @@ namespace NEA_V1
             ...
             1 = 2(100) = false
             2 = 2(1) - true
-            */
+            
         }
     }
+*/
 }

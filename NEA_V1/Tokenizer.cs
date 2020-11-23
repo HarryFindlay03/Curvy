@@ -19,14 +19,15 @@ namespace NEA_V1
 		subIn,
 		yVal,
 		Equals,
-		Exponent
+		Exponent,
+		Operator
 	}
 	
 	public class Tokenizer
 	{
 		Stack<string> myStack;
 		Token currentToken = Token.Empty;
-		double number;
+		List<double> numbers = new List<double>();
 
 		List<Token> tokens = new List<Token>();
 
@@ -43,9 +44,9 @@ namespace NEA_V1
 			get { return currentToken; }
 		}
 
-		public double getNumber
+		public List<double> getNumbers()
 		{
-			get { return number; }
+			return numbers;
 		}
 
 		public double getSubInVal()
@@ -106,7 +107,7 @@ namespace NEA_V1
 				}
 				if (int.TryParse(stackVar, out int n))
 				{
-					number = n;
+					numbers.Add(n);
 					currentToken = Token.Number;
 					tokens.Add(currentToken);
 				}
@@ -121,9 +122,30 @@ namespace NEA_V1
 			//throw new InvalidDataException($"Unexcpected Character:{currentChar}");
 		}
 
-		public List<Token> returnTokens()
+		public Stack<Token> getTokens()
 		{
-			return tokens;
+			//Return the list as a stack so I can pop off the top, will be the opposite way around and bottom of stack will be start of the postfix notation
+			Stack<Token> myTokens = new Stack<Token>(tokens);
+			return myTokens;
+		}
+
+		public static Token returnType(Token token)
+		{
+			switch(token)
+			{
+				case Token.Add:
+				case Token.Subtract:
+				case Token.Times:
+				case Token.Divide:
+				case Token.Exponent:
+					return Token.Operator;
+				case Token.Number:
+				case Token.subIn:
+				case Token.yVal:
+					return Token.Number;
+				default:
+					return Token.EOF;
+			}
 		}
 	}
 	

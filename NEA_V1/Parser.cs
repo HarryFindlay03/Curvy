@@ -7,6 +7,109 @@ using System.IO;
 
 namespace NEA_V1
 {
+    public class Node
+    {
+        public Token Data;
+        public Node Left;
+        public Node Right;
+
+        public Node()
+        {
+
+        }
+        public Node(Token data)
+        {
+            this.Data = data;
+        }
+    }
+
+    public class Parser
+    {
+        Stack<Token> myTokens;
+		List<double> numbers;
+
+		public Parser(Tokenizer tokenizer)
+        {
+            myTokens = tokenizer.getTokens();
+			numbers = tokenizer.getNumbers(); //List of numbers in the correct order with the operations.
+		}
+
+		
+		public double Eval()
+		{
+			Stack<double> resultStack = new Stack<double>();
+			int temp = 0; //keeping track of where the numbers are
+			double finalResult = 0;
+			while(myTokens.Count > 0)
+			{
+				if(Tokenizer.returnType(myTokens.Peek()) == Token.Number)
+				{
+					double firstNum = numbers[temp];
+					myTokens.Pop();
+					temp++;
+					double secNum = numbers[temp];
+					myTokens.Pop();
+					temp++;
+					Token op = myTokens.Pop(); //need to add in validation
+					if(op == Token.Add)
+					{
+						double result = firstNum + secNum;
+						resultStack.Push(result);
+					}
+					else if(op == Token.Subtract)
+					{
+						double result = secNum - firstNum;
+						resultStack.Push(result);
+					}
+					else if (op == Token.Times)
+					{
+						double result = firstNum * secNum;
+						resultStack.Push(result);
+					}
+					else if (op == Token.Divide)
+					{
+						double result = secNum / firstNum;
+						resultStack.Push(result);
+					}
+				}
+				else if(Tokenizer.returnType(myTokens.Peek()) == Token.Operator)
+				{
+					double firstVal = 0;
+					double secondVal = 0;
+					Token op = myTokens.Pop();
+					if (op == Token.Add)
+					{
+						firstVal = resultStack.Pop();
+						secondVal = resultStack.Pop();
+						finalResult = firstVal + secondVal;
+					}
+					else if (op == Token.Subtract)
+					{
+						firstVal = resultStack.Pop();
+						secondVal = resultStack.Pop();
+						finalResult = firstVal - secondVal;
+					}
+					else if (op == Token.Times)
+					{
+						firstVal = resultStack.Pop();
+						secondVal = resultStack.Pop();
+						finalResult = firstVal * secondVal;
+					}
+					else if (op == Token.Divide)
+					{
+						firstVal = resultStack.Pop();
+						secondVal = resultStack.Pop();
+						finalResult = firstVal / secondVal;
+					}
+				}
+			}
+			return finalResult;
+		}
+    }
+
+
+
+    /*
 	public class Parser
 	{
 		Tokenizer myTokenizer;
@@ -90,12 +193,12 @@ namespace NEA_V1
 		public Node ParseExpression()
 		{
 			var expression = ParseNodes();
-			/*
+			//Commented 
 			if(myTokenizer.Token == Token.subIn )
 			{
 				return expression;
 			}
-			*/
+			//commented 
 			if(myTokenizer.Token != Token.EOF)
 			{
 				throw new Exception($"Unexpected Characters at the end of expression!");
@@ -116,6 +219,7 @@ namespace NEA_V1
 			return myParser.ParseExpression();
 		}
 	}
+    
 
 	public abstract class Node
 	{
@@ -159,6 +263,8 @@ namespace NEA_V1
 			return result;
 		}
 	}
+    */
 
+    
 
 }
