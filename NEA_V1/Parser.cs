@@ -106,13 +106,7 @@ namespace NEA_V1
 
 		public static Node Parse(string str, double setVal)
 		{
-			//would quite like it to just use a string, atm using a string reader. 
-			return Parse(new Tokenizer(new StringReader(str)), setVal);
-		}
-
-		public static Node Parse(string str)
-		{
-			var myParser = new Parser(new Tokenizer(new StringReader(str)));
+			var myParser = new Parser(new Tokenizer(str), setVal);
 			return myParser.ParseExpression();
 		}
 

@@ -20,20 +20,19 @@ namespace NEA_V1
 
         private void btn_submit_Click(object sender, EventArgs e)
         {
-            PointChecker pCheck;
-            string str = txtBox_input.Text;
-            //Stack<string> result = InfixToPostfix.infixToPostfix(str);
-            //InfixToPostfix.showStack(result);
 
-            Tokenizer tokenizer = new Tokenizer(new StringReader(str));
-            List<Token> tokens = tokenizer.ReturnTokens();
+            string str = txtBox_input.Text;
+
+            Tokenizer tokenizer = new Tokenizer(str);
+            List<Token> tokens = tokenizer.returnTokens();
 
             for(int i = 0; i < tokens.Count; i++)
             {
-                Console.WriteLine(tokens[i]);
+                Console.WriteLine(tokens[i]); //Only doing the first value; set a variable as stack.Pop sorta ting. 
             }
             /*
-            if(String.IsNullOrEmpty(txt_xRange.Text) || String.IsNullOrEmpty(txt_yRange.Text))
+            PointChecker pCheck;
+            if (String.IsNullOrEmpty(txt_xRange.Text) || String.IsNullOrEmpty(txt_yRange.Text))
             {
                 pCheck = new PointChecker(str);
             }

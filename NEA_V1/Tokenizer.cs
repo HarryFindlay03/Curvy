@@ -24,17 +24,17 @@ namespace NEA_V1
 	
 	public class Tokenizer
 	{
-		TextReader myReader;
-		char currentChar;
+		Stack<string> myStack;
 		Token currentToken = Token.Empty;
 		double number;
 
+		List<Token> tokens = new List<Token>();
+
 		double testVal = 0;
 
-		public Tokenizer(TextReader reader)
+		public Tokenizer(string str)
 		{
-			myReader = reader;
-			NextChar();
+			myStack = InfixToPostfix.infixToPostfix(str);
 			NextToken();
 		}
 
@@ -59,96 +59,72 @@ namespace NEA_V1
 			return testVal;
 		}
 
-		public void NextChar()
-		{
-			int character = myReader.Read();
-			if(character < 0)
-			{
-				currentChar = '\0';
-			}
-			else
-			{
-				currentChar = (char)character;
-			}
-		}
-
 		public void NextToken()
 		{
-			while (char.IsWhiteSpace(currentChar))
+			while(myStack.Count > 0)
 			{
-				NextChar();
-			}
-
-			switch (currentChar)
-			{
-				case '\0':
-					currentToken = Token.EOF;
-					return;
-				case '+':
-					NextChar();
-					currentToken = Token.Add;
-					return;
-				case '-':
-					NextChar();
-					currentToken = Token.Subtract;
-					return;
-				case '*':
-					NextChar();
-					currentToken = Token.Times;
-					return;
-				case '/':
-					NextChar();
-					currentToken = Token.Divide;
-					return;
-				case 'x':
-					NextChar();
-					currentToken = Token.subIn; //need to create subIn as a number then I can substitute in other numbers into it by replacing it (-number + newNumber)
-					return;
-				case 'y':
-					NextChar();
-					currentToken = Token.subIn;
-					return;
-				case '=':
-					NextChar();
-					currentToken = Token.Equals;
-					return;
-				case '^':
-					NextChar();
-					currentToken = Token.Exponent;
-					return;
-			}
-
-			if(char.IsDigit(currentChar) || currentChar == '.')
-			{
-				//If nextchar is then equal to x then shove a times in the middle. 
-				var sb = new StringBuilder();
-				bool hasDecPoint = false;
-				while (char.IsDigit(currentChar) || (!hasDecPoint && currentChar == '.'))
+				string stackVar = myStack.Pop().ToString();
+				if(stackVar == "+")
 				{
-					sb.Append(currentChar);
-					hasDecPoint = currentChar == '.';
-					NextChar();
+					currentToken = Token.Add;
+					tokens.Add(currentToken);
 				}
-				number = double.Parse(sb.ToString());
-				currentToken = Token.Number;
-				return;
+				if (stackVar == "-")
+				{
+					currentToken = Token.Subtract;
+					tokens.Add(currentToken);
+				}
+				if (stackVar == "*")
+				{
+					currentToken = Token.Times;
+					tokens.Add(currentToken);
+				}
+				if (stackVar == "/")
+				{
+					currentToken = Token.Divide;
+					tokens.Add(currentToken);
+				}
+				if (stackVar == "x")
+				{
+					currentToken = Token.subIn;
+					tokens.Add(currentToken);
+				}
+				if (stackVar == "y")
+				{
+					currentToken = Token.yVal;
+					tokens.Add(currentToken);
+				}
+				if (stackVar == "=")
+				{
+					currentToken = Token.Equals;
+					tokens.Add(currentToken);
+				}
+				if (stackVar == "^")
+				{
+					currentToken = Token.Exponent;
+					tokens.Add(currentToken);
+				}
+				if (int.TryParse(stackVar, out int n))
+				{
+					number = n;
+					currentToken = Token.Number;
+					tokens.Add(currentToken);
+				}
 			}
 
-			throw new InvalidDataException($"Unexcpected Character:{currentChar}");
+			
+		if(myStack.Count == 0)
+		{
+			currentToken = Token.EOF;
+			return; //Needs to do validation so we don't get a stack underflow I think. 
+		}
+			//throw new InvalidDataException($"Unexcpected Character:{currentChar}");
 		}
 
-        public List<Token> ReturnTokens()
-        {
-            List<Token> tokens = new List<Token>();
-            while(currentChar != '\0')
-            {
-                tokens.Add(currentToken);
-                NextToken();
-            }
-            tokens.Add(currentToken);
-            return tokens;
-        }
-	   
+		public List<Token> returnTokens()
+		{
+			return tokens;
+		}
 	}
 	
 }
