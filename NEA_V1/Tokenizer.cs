@@ -29,7 +29,7 @@ namespace NEA_V1
 		Token currentToken = Token.Empty;
 		List<double> numbers = new List<double>();
 
-		List<Token> tokens = new List<Token>();
+		Stack<Token> tokens = new Stack<Token>();
 
 		double testVal = 0;
 
@@ -68,48 +68,48 @@ namespace NEA_V1
 				if(stackVar == "+")
 				{
 					currentToken = Token.Add;
-					tokens.Add(currentToken);
+					tokens.Push(currentToken);
 				}
 				if (stackVar == "-")
 				{
 					currentToken = Token.Subtract;
-					tokens.Add(currentToken);
+					tokens.Push(currentToken);
 				}
 				if (stackVar == "*")
 				{
 					currentToken = Token.Times;
-					tokens.Add(currentToken);
+					tokens.Push(currentToken);
 				}
 				if (stackVar == "/")
 				{
 					currentToken = Token.Divide;
-					tokens.Add(currentToken);
+					tokens.Push(currentToken);
 				}
 				if (stackVar == "x")
 				{
 					currentToken = Token.subIn;
-					tokens.Add(currentToken);
+					tokens.Push(currentToken);
 				}
 				if (stackVar == "y")
 				{
 					currentToken = Token.yVal;
-					tokens.Add(currentToken);
+					tokens.Push(currentToken);
 				}
 				if (stackVar == "=")
 				{
 					currentToken = Token.Equals;
-					tokens.Add(currentToken);
+					tokens.Push(currentToken);
 				}
 				if (stackVar == "^")
 				{
 					currentToken = Token.Exponent;
-					tokens.Add(currentToken);
+					tokens.Push(currentToken);
 				}
 				if (int.TryParse(stackVar, out int n))
 				{
 					numbers.Add(n);
 					currentToken = Token.Number;
-					tokens.Add(currentToken);
+					tokens.Push(currentToken);
 				}
 			}
 
@@ -124,9 +124,15 @@ namespace NEA_V1
 
 		public Stack<Token> getTokens()
 		{
-			//Return the list as a stack so I can pop off the top, will be the opposite way around and bottom of stack will be start of the postfix notation
-			Stack<Token> myTokens = new Stack<Token>(tokens);
-			return myTokens;
+			//Return the tokens stack in a reverse order.
+			Stack<Token> returnTokens = new Stack<Token>();
+			while(tokens.Count > 0)
+			{
+				returnTokens.Push(tokens.Pop());
+			}
+
+			return returnTokens;
+			
 		}
 
 		public static Token returnType(Token token)

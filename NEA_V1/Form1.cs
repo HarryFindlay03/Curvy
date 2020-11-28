@@ -26,9 +26,7 @@ namespace NEA_V1
             Tokenizer tokenizer = new Tokenizer(str);
 
             Parser p = new Parser(tokenizer);
-
-            Console.WriteLine("Final Answer: " + p.Eval());
-
+            p.Eval();
     
             /*
             PointChecker pCheck;
