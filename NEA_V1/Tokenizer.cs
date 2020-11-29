@@ -46,6 +46,8 @@ namespace NEA_V1
 
 		public List<double> getNumbers()
 		{
+			//Reverse numbers as they are added to the list in the reverse order
+			numbers.Reverse();
 			return numbers;
 		}
 
