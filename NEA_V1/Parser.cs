@@ -49,30 +49,40 @@ namespace NEA_V1
 				}
 				if(Tokenizer.returnType(tokens.Peek()) == Token.Number)
 				{
-					tokens.Pop(); tokens.Pop(); //get rid of the 2 number tokens off the stack
-					val1 = tokenizerNumbers[temp];
-					temp++;
-					val2 = tokenizerNumbers[temp];
-					temp++;
-					switch (tempOp)
+					tokens.Pop();
+					if (tokens.Peek() != Token.Number || tokens.Count == 0)
 					{
-						case Token.Add:
-							result = val1 + val2;
-							break;
-						case Token.Subtract:
-							result = val1 - val2;
-							break;
-						case Token.Times:
-							result = val1 * val2;
-							break;
-						case Token.Divide:
-							result = val1 / val2;
-							break;
-						case Token.Exponent:
-							result = Math.Pow(val1, val2);
-							break;
+						result = val1;
+						results.Add(result); //check final operators list as this might not contain the needed operator if it is just the last one. if number follows operator then just do the operation at the end. 
 					}
-					results.Add(result);
+					else
+					{
+						tokens.Pop();
+						val1 = tokenizerNumbers[temp];
+						temp++;
+						//If there is no val 2 add to results value of all results (5+5+5) -> result = val1
+						val2 = tokenizerNumbers[temp];
+						temp++;
+						switch (tempOp)
+						{
+							case Token.Add:
+								result = val1 + val2;
+								break;
+							case Token.Subtract:
+								result = val1 - val2;
+								break;
+							case Token.Times:
+								result = val1 * val2;
+								break;
+							case Token.Divide:
+								result = val1 / val2;
+								break;
+							case Token.Exponent:
+								result = Math.Pow(val1, val2);
+								break;
+						}
+						results.Add(result);
+					}
 				}
 			}
 			if(finalOperators.Count > 0)
@@ -91,6 +101,10 @@ namespace NEA_V1
 						finalResult += (results[i] - results[i + 1]);
 					}
 				}
+			}
+			else
+			{
+				finalResult = results[0];
 			}
 			return finalResult;
 		}
