@@ -9,13 +9,10 @@ namespace NEA_V1
 {
 	public class Parser
 	{
-		List<Token> finalOperators = new List<Token>();
-		List<double> results = new List<double>();
 		Stack<Token> tokens;
+		Stack<double> tempStack = new Stack<double>();
+		Stack<double> resultTemp = new Stack<double>();
 		List<double> tokenizerNumbers;
-
-		Stack<Token> tempStack = new Stack<Token>();
-
 
 		public Parser(Tokenizer tokenizer)
 		{
@@ -25,89 +22,94 @@ namespace NEA_V1
 
 		public double Eval()
 		{
-			double val1 = 0;
-			double val2 = 0;
-			int temp = 0; //Looping through the numbers List returned by the tokenizer
-			double result = 0; //Temp result that is used when operating on the operands
-			double finalResult = 0; //Result that is going to be returned
-			Token tempOp = Token.Empty;
-
+			Token op = Token.Empty;
+			bool doubleOP = false;
+			double result = 1;
+			double finalresult = 1;
+			double output = 1;
+			int i = 0;
+			int j = 0;
 			while(tokens.Count > 0)
 			{
 				if(Tokenizer.returnType(tokens.Peek()) == Token.Operator)
 				{
-					tempStack.Push(tokens.Pop());
-					if (Tokenizer.returnType(tokens.Peek()) == Token.Operator)
+					op = tokens.Pop();
+					if(doubleOP == true)
 					{
-						finalOperators.Add(tempStack.Pop());
-						tempOp = tokens.Pop();
-					}
-					else //only one operator
-					{
-						tempOp = tempStack.Pop();
-					}
-				}
-				if(Tokenizer.returnType(tokens.Peek()) == Token.Number)
-				{
-					tokens.Pop();
-					if (tokens.Peek() != Token.Number || tokens.Count == 0)
-					{
-						result = val1;
-						results.Add(result); //check final operators list as this might not contain the needed operator if it is just the last one. if number follows operator then just do the operation at the end. 
+						j = 0;
+						doubleOP = false;
+						while(resultTemp.Count > 0)
+						{
+							if(op == Token.Add)
+							{
+								finalresult += resultTemp.Pop();
+							}
+						}
+						result = finalresult - 1;
 					}
 					else
 					{
-						tokens.Pop();
-						val1 = tokenizerNumbers[temp];
-						temp++;
-						//If there is no val 2 add to results value of all results (5+5+5) -> result = val1
-						val2 = tokenizerNumbers[temp];
-						temp++;
-						switch (tempOp)
+						while (tempStack.Count > 0)
 						{
-							case Token.Add:
-								result = val1 + val2;
-								break;
-							case Token.Subtract:
-								result = val1 - val2;
-								break;
-							case Token.Times:
-								result = val1 * val2;
-								break;
-							case Token.Divide:
-								result = val1 / val2;
-								break;
-							case Token.Exponent:
-								result = Math.Pow(val1, val2);
-								break;
+							double tempVal = tempStack.Pop();
+							if (op == Token.Add)
+							{
+								result = result + tempVal;
+								output = output + tempVal;
+								if (j == 0)
+								{
+									result = result - 1;
+									output = output - 1;
+								}
+							}
+							else if(op == Token.Subtract)
+							{
+								//Needs to be finished
+							}
+							else if(op == Token.Times)
+							{
+								result = result * tempVal;
+								output = output * tempVal;
+							}
+							else if(op == Token.Divide)
+							{
+								//Needs to be finsihed
+							}
+							j++;
 						}
-						results.Add(result);
+						resultTemp.Push(result);
+						result = 1;
+					}
+					doubleOP = true;
+				}
+				else if(Tokenizer.returnType(tokens.Peek()) == Token.Number)
+				{
+					tokens.Pop();
+					if(Tokenizer.returnType(tokens.Peek()) == Token.Number)
+					{
+						tokens.Pop();
+						doubleOP = false;
+						tempStack.Push(tokenizerNumbers[i]);
+						i++;
+						tempStack.Push(tokenizerNumbers[i]);
+						i++;
+					}
+					else
+					{
+						doubleOP = false;
+						tempStack.Push(tokenizerNumbers[i]);
+						i++;
 					}
 				}
 			}
-			if(finalOperators.Count > 0)
+			if(j == 0)
 			{
-				//Will have to check if * is final operator as finalresult cannot start as 0. 
-				for(int i = 0; i < finalOperators.Count; i++)
-				{
-					if(finalOperators[i] == Token.Add)
-					{
-;						finalResult += (results[i] + results[i + 1]); 
-						//Value for final result will not work when we have more than 2 values in results...
-						//They need their own temp int to loop through, otherwise next i == i+1.
-					}
-					if (finalOperators[i] == Token.Subtract)
-					{
-						finalResult += (results[i] - results[i + 1]);
-					}
-				}
+				return result;
 			}
 			else
 			{
-				finalResult = results[0];
+				return output;
 			}
-			return finalResult;
 		}
 	}   
-
 }

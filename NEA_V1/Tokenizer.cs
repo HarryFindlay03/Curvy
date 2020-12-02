@@ -31,11 +31,12 @@ namespace NEA_V1
 
 		Stack<Token> tokens = new Stack<Token>();
 
-		double testVal = 0;
+		double subIn;
 
-		public Tokenizer(string str)
+		public Tokenizer(string str, double subIn)
 		{
 			myStack = InfixToPostfix.infixToPostfix(str);
+			this.subIn = subIn;
 			NextToken();
 		}
 
@@ -53,21 +54,15 @@ namespace NEA_V1
 
 		public double getSubInVal()
 		{
-			return testVal;
-		}
-
-		public double setSubInVal(double num)
-		{
-			testVal = num;
-			return testVal;
+			return subIn;
 		}
 
 		public void NextToken()
 		{
-			while(myStack.Count > 0)
+			while (myStack.Count > 0)
 			{
 				string stackVar = myStack.Pop().ToString();
-				if(stackVar == "+")
+				if (stackVar == "+")
 				{
 					currentToken = Token.Add;
 					tokens.Push(currentToken);
@@ -90,6 +85,7 @@ namespace NEA_V1
 				if (stackVar == "x")
 				{
 					currentToken = Token.subIn;
+					numbers.Add(subIn);
 					tokens.Push(currentToken);
 				}
 				if (stackVar == "y")
@@ -126,15 +122,7 @@ namespace NEA_V1
 
 		public Stack<Token> getTokens()
 		{
-			//Return the tokens stack in a reverse order.
-			Stack<Token> returnTokens = new Stack<Token>();
-			while(tokens.Count > 0)
-			{
-				returnTokens.Push(tokens.Pop());
-			}
-
-			return returnTokens;
-			
+			return tokens;
 		}
 
 		public static Token returnType(Token token)

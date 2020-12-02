@@ -23,28 +23,11 @@ namespace NEA_V1
 
 			string str = txtBox_input.Text;
 
-			Tokenizer tokenizer = new Tokenizer(str);
-
+			Tokenizer tokenizer = new Tokenizer(str, 3);
 
 			Parser p = new Parser(tokenizer);
-			double result = p.Eval();
-			Console.WriteLine(result);
-	
-			/*
-			PointChecker pCheck;
-			if (String.IsNullOrEmpty(txt_xRange.Text) || String.IsNullOrEmpty(txt_yRange.Text))
-			{
-				pCheck = new PointChecker(str);
-			}
-			else
-			{
-				int xRange = int.Parse(txt_xRange.Text);
-				int yRange = int.Parse(txt_yRange.Text);
-				pCheck = new PointChecker(str, xRange, yRange);
-			}
+			Console.WriteLine(p.Eval());
 
-			pCheck.checkPoints();
-			*/
 		}
 	}
 }
