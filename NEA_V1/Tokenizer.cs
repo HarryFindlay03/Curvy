@@ -22,7 +22,7 @@ namespace NEA_V1
 		Exponent,
 		Operator
 	}
-	
+
 	public class Tokenizer
 	{
 		Stack<string> myStack;
@@ -30,6 +30,8 @@ namespace NEA_V1
 		List<double> numbers = new List<double>();
 
 		Stack<Token> tokens = new Stack<Token>();
+		Stack<Token> tokensLeft = new Stack<Token>();
+		Stack<Token> tokensRight = new Stack<Token>();
 
 		double subIn;
 
@@ -109,22 +111,24 @@ namespace NEA_V1
 					currentToken = Token.Number;
 					tokens.Push(currentToken);
 				}
+
 			}
 
-			
-		if(myStack.Count == 0)
-		{
-			currentToken = Token.EOF;
-			return; //Needs to do validation so we don't get a stack underflow I think. 
-		}
-			//throw new InvalidDataException($"Unexcpected Character:{currentChar}");
-		}
+			tokensRight = tokens;
 
+			if (myStack.Count == 0)
+			{
+				currentToken = Token.EOF;
+				return; //Needs to do validation so we don't get a stack underflow I think. 
+			}
+			//throw new InvalidDataException($"Unexcpected Character:{currentChar}");
+
+		}
 		public Stack<Token> getTokens()
 		{
 			return tokens;
 		}
-
+		
 		public static Token returnType(Token token)
 		{
 			switch(token)

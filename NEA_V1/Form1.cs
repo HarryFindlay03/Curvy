@@ -22,11 +22,12 @@ namespace NEA_V1
 		{
 
 			string str = txtBox_input.Text;
+			int x = int.Parse(txt_xRange.Text);
+			int y = int.Parse(txt_yRange.Text);
 
-			Tokenizer tokenizer = new Tokenizer(str, 3);
+			PointChecker pointCheck = new PointChecker(str, x, y);
 
-			Parser p = new Parser(tokenizer);
-			Console.WriteLine(p.Eval());
+			pointCheck.checkPoints();
 
 		}
 	}

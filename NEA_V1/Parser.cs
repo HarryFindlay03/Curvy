@@ -17,7 +17,7 @@ namespace NEA_V1
 		public Parser(Tokenizer tokenizer)
 		{
 			tokens = tokenizer.getTokens();
-			tokenizerNumbers = tokenizer.getNumbers(); //This list may be in the wrong order
+			tokenizerNumbers = tokenizer.getNumbers(); 
 		}
 
 		public double Eval()
@@ -102,7 +102,7 @@ namespace NEA_V1
 					}
 				}
 			}
-			if(j == 0)
+			if(j == 0) //reusing j to see whether the double op if statement has been triggered
 			{
 				return result;
 			}
