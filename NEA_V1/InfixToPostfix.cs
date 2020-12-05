@@ -80,7 +80,6 @@ namespace NEA_V1
 
             postfix.Push(result);
             result = "";
-
             while(stack.Count > 0)
             {
                 postfix.Push(stack.Pop().ToString());

@@ -16,6 +16,7 @@ namespace NEA_V1
 		public Form1()
 		{
 			InitializeComponent();
+			//pictureBox1.Image = new Bitmap(pictureBox1.Width, pictureBox1.Height);
 		}
 
 		private void btn_submit_Click(object sender, EventArgs e)
@@ -25,10 +26,8 @@ namespace NEA_V1
 			int x = int.Parse(txt_xRange.Text);
 			int y = int.Parse(txt_yRange.Text);
 
-			PointChecker pointCheck = new PointChecker(str, x, y);
-
-			pointCheck.checkPoints();
-
+			Draw d = new Draw(pictureBox1, str, x, y);
+			d.Drawer();
 		}
 	}
 }

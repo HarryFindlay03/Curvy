@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Drawing;
 
 namespace NEA_V1
 {
@@ -20,9 +21,9 @@ namespace NEA_V1
             xRange = x;
             yRange = y;
         }
-        public int[,] checkPoints()
+        public Point[] checkPoints()
         {
-            int[,] onLine = new int[100, 100];
+            Point[] onLine = new Point[100];
 
             //The coordinates used to loop through will eventually be linked to a scale so they can be drawn!
             int arrTemp = 0;
@@ -37,8 +38,7 @@ namespace NEA_V1
                     if(temp == y)
                     {
                         Console.WriteLine("Point ({0}, {1}) is on the curve.", x, y);
-                        onLine[arrTemp, 0] = x;
-                        onLine[arrTemp, 1] = y;
+                        onLine[arrTemp] = new Point(x, y);
                         arrTemp++;
                     }
                 }
