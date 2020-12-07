@@ -32,9 +32,7 @@
             this.btn_submit = new System.Windows.Forms.Button();
             this.txt_xRange = new System.Windows.Forms.TextBox();
             this.txt_yRange = new System.Windows.Forms.TextBox();
-            this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -61,6 +59,7 @@
             this.txt_xRange.Name = "txt_xRange";
             this.txt_xRange.Size = new System.Drawing.Size(22, 20);
             this.txt_xRange.TabIndex = 3;
+            this.txt_xRange.Text = "100";
             // 
             // txt_yRange
             // 
@@ -68,11 +67,7 @@
             this.txt_yRange.Name = "txt_yRange";
             this.txt_yRange.Size = new System.Drawing.Size(22, 20);
             this.txt_yRange.TabIndex = 4;
-            // 
-            // fileSystemWatcher1
-            // 
-            this.fileSystemWatcher1.EnableRaisingEvents = true;
-            this.fileSystemWatcher1.SynchronizingObject = this;
+            this.txt_yRange.Text = "100";
             // 
             // pictureBox1
             // 
@@ -95,7 +90,6 @@
             this.Controls.Add(this.txtBox_input);
             this.Name = "Form1";
             this.Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -108,7 +102,6 @@
         private System.Windows.Forms.Button btn_submit;
         private System.Windows.Forms.TextBox txt_xRange;
         private System.Windows.Forms.TextBox txt_yRange;
-        private System.IO.FileSystemWatcher fileSystemWatcher1;
         private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

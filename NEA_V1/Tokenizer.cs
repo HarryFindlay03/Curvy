@@ -30,8 +30,6 @@ namespace NEA_V1
 		List<double> numbers = new List<double>();
 
 		Stack<Token> tokens = new Stack<Token>();
-		Stack<Token> tokensLeft = new Stack<Token>();
-		Stack<Token> tokensRight = new Stack<Token>();
 
 		double subIn;
 
@@ -39,6 +37,12 @@ namespace NEA_V1
 		{
 			myStack = InfixToPostfix.infixToPostfix(str);
 			this.subIn = subIn;
+			NextToken();
+		}
+		public Tokenizer(string str)
+		{
+			myStack = InfixToPostfix.infixToPostfix(str);
+			this.subIn = 1; //Default value of subin
 			NextToken();
 		}
 
@@ -113,8 +117,6 @@ namespace NEA_V1
 				}
 
 			}
-
-			tokensRight = tokens;
 
 			if (myStack.Count == 0)
 			{

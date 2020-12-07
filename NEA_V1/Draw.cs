@@ -30,11 +30,12 @@ namespace NEA_V1
 
 			using (var g = Graphics.FromImage(picBox.Image))
 			{
+				Pen pen = new Pen(Color.Red, 3);
 				for (int i = 0; i < (points.Length - 1); i++)
 				{
 					Point p1 = points[i];
 					Point p2 = points[i + 1];
-					g.DrawLine(Pens.Red, p1, p2);
+					g.DrawLine(pen, p1, p2);
 					picBox.Refresh();
 				}
 			}
