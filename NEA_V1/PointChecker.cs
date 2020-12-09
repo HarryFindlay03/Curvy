@@ -21,6 +21,7 @@ namespace NEA_V1
 			xRange = x;
 			yRange = y;
 		}
+		/*
 		public Point[] checkPoints()
 		{
 			Point[] onLine = new Point[xRange];
@@ -46,6 +47,7 @@ namespace NEA_V1
 			}
 			return onLine;   
 		}
+		*/
 	}
 
 }

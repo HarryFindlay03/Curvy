@@ -7,29 +7,30 @@ using System.IO;
 
 namespace NEA_V1
 {
-	public enum Token
+
+	public class Token
 	{
-        Empty,
-		EOF,
-		Number,
-		Add,
-		Subtract,
-		Times,
-		Divide,
-		subIn,
-		yVal,
-		Equals,
-		Exponent,
-		Operator
+		public string Type { get; private set; }
+		public double Data { get; private set; }
+
+		public Token(string type, double data)
+		{
+			this.Type = type;
+			this.Data = data;
+		}
+		public Token(string type)
+		{
+			this.Type = type;
+		}
 	}
+	
+		
 
 	public class Tokenizer
 	{
 		Stack<string> myStack;
-		Token currentToken = Token.Empty;
-		List<double> numbers = new List<double>();
 
-		Stack<Token> tokens = new Stack<Token>();
+		List<Token> tokens = new List<Token>();
 
 		double subIn;
 
@@ -46,17 +47,6 @@ namespace NEA_V1
 			NextToken();
 		}
 
-		public Token Token
-		{
-			get { return currentToken; }
-		}
-
-		public List<double> getNumbers()
-		{
-			//Reverse numbers as they are added to the list in the reverse order
-			numbers.Reverse();
-			return numbers;
-		}
 
 		public double getSubInVal()
 		{
@@ -70,83 +60,63 @@ namespace NEA_V1
 				string stackVar = myStack.Pop().ToString();
 				if (stackVar == "+")
 				{
-					currentToken = Token.Add;
-					tokens.Push(currentToken);
+					tokens.Add(new Token("+"));
 				}
 				if (stackVar == "-")
 				{
-					currentToken = Token.Subtract;
-					tokens.Push(currentToken);
+					tokens.Add(new Token("-"));
 				}
 				if (stackVar == "*")
 				{
-					currentToken = Token.Times;
-					tokens.Push(currentToken);
+					tokens.Add(new Token("*"));
 				}
 				if (stackVar == "/")
 				{
-					currentToken = Token.Divide;
-					tokens.Push(currentToken);
+					tokens.Add(new Token("/"));
 				}
 				if (stackVar == "x")
 				{
-					currentToken = Token.subIn;
-					numbers.Add(subIn);
-					tokens.Push(currentToken);
+					tokens.Add(new Token("x", subIn));
 				}
 				if (stackVar == "y")
 				{
-					currentToken = Token.yVal;
-					tokens.Push(currentToken);
+					tokens.Add(new Token("y"));
 				}
 				if (stackVar == "=")
 				{
-					currentToken = Token.Equals;
-					tokens.Push(currentToken);
+					tokens.Add(new Token("="));
 				}
 				if (stackVar == "^")
 				{
-					currentToken = Token.Exponent;
-					tokens.Push(currentToken);
+					tokens.Add(new Token("^"));
 				}
 				if (int.TryParse(stackVar, out int n))
 				{
-					numbers.Add(n);
-					currentToken = Token.Number;
-					tokens.Push(currentToken);
+					tokens.Add(new Token("Number", n));
 				}
 
 			}
 
-			if (myStack.Count == 0)
-			{
-				currentToken = Token.EOF;
-				return; //Needs to do validation so we don't get a stack underflow I think. 
-			}
-			//throw new InvalidDataException($"Unexcpected Character:{currentChar}");
-
 		}
-		public Stack<Token> getTokens()
+
+		public List<Token> getTokens()
 		{
+			tokens.Reverse();
 			return tokens;
 		}
-		
-		public static Token returnType(Token token)
+
+		public static bool isOp(Token token)
 		{
-			switch(token)
+			switch(token.Type)
 			{
-				case Token.Add:
-				case Token.Subtract:
-				case Token.Times:
-				case Token.Divide:
-				case Token.Exponent:
-					return Token.Operator;
-				case Token.Number:
-				case Token.subIn:
-				case Token.yVal:
-					return Token.Number;
+				case "+":
+				case "-":
+				case "*":
+				case "/":
+				case "^":
+					return true;
 				default:
-					return Token.EOF;
+					return false;
 			}
 		}
 	}

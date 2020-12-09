@@ -21,7 +21,7 @@ namespace NEA_V1
 			this.x = x;
 			this.y = y;
 		}
-
+		/*
 		public void Drawer()
 		{
 			PointChecker pc = new PointChecker(str, x, y);
@@ -40,5 +40,6 @@ namespace NEA_V1
 				}
 			}
 		}
+		*/
 	}
 }

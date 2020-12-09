@@ -9,136 +9,103 @@ namespace NEA_V1
 {
 	public class Parser
 	{
-		Stack<Token> tokens;
-		Stack<double> tempStack = new Stack<double>();
-		Stack<double> resultTemp = new Stack<double>();
-		List<double> tokenizerNumbers;
-
+		List<Token> tokens;
 		public Parser(Tokenizer tokenizer)
 		{
 			tokens = tokenizer.getTokens();
-			tokenizerNumbers = tokenizer.getNumbers(); 
 		}
 
+
+		//Issue if there is a double op I cannot use the result double as this makes it way too large. 
 		public double Eval()
 		{
-			Token op = Token.Empty;
-			bool doubleOP = false;
+			Stack<double> numbers = new Stack<double>();
+			Stack<double> finalNumbers = new Stack<double>();
 			double result = 1;
-			double finalresult = 1;
-			bool tempAdd = true; //So result doesn't become 1 for each time multiple suims are added together 
-			int i = 0;
-			int j = 0;
-			int x = 0;
-			while(tokens.Count > 0)
+			double doubleResult = 1;
+			double prevResult = 1;
+			bool doubleOp = false;
+			bool doubleRan = false;
+			bool addition = false;
+
+
+			for (int pos = 0; pos < tokens.Count; pos++)
 			{
-				if(Tokenizer.returnType(tokens.Peek()) == Token.Operator)
+				if (Tokenizer.isOp(tokens[pos]) == true) //if current pos is operator
 				{
-					op = tokens.Pop();
-					if(doubleOP == true)
+					string op = tokens[pos].Type;
+					if (op == "+") addition = true;
+					if (pos > 2) addition = false;
+					while (numbers.Count > 0)
 					{
-						if(tempStack.Count > 0)
+						double tempVal = numbers.Pop();
+						if (op == "+")
 						{
-							resultTemp.Push(tempStack.Pop());
+							result += tempVal; //Used when there are not multiple operations
+							prevResult += tempVal; 
 						}
-
-						j = 0;
-						doubleOP = false;
-						while(resultTemp.Count > 0)
+						if(op == "*")
 						{
-							if(op == Token.Add)
-							{
-								j=1;
-								finalresult += resultTemp.Pop();
-							}
-							if(op == Token.Times)
-							{
-								finalresult *= resultTemp.Pop();
-							}
-						}
-						if(j == 1)
-						{
-							result = finalresult - 1;
-						}
-						else
-						{
-							result = finalresult;
+							result *= tempVal;
+							prevResult *= tempVal;
 						}
 					}
-					else
+					if (addition == true)
 					{
-						while (x < 2)
-						{
-							//Only pop 2 values off the stack unless empty then break.
-							if (tempStack.Count == 0) break; 
-							x++; 
-
-							double tempVal = tempStack.Pop();
-							if (op == Token.Add)
-							{
-								result = result + tempVal;
-								if (j == 0)
-								{
-									result = result - 1;
-								}
-							}
-							else if(op == Token.Subtract)
-							{
-								//Needs to be finished
-							}
-							else if(op == Token.Times)
-							{
-								//When there are more (2*5+3*5+4*5) This breaks. 
-								//This should be easy to fix, just need to check the double op functions.
-								//Check the postfix class to see how the tokens returns.
-								if (j > 1 && tempAdd == true)
-								{
-									Console.WriteLine("test");
-									tempAdd = false;
-									result = 1;
-								}
-								result = result * tempVal;
-							}
-							else if(op == Token.Divide)
-							{
-								//Needs to be finsihed
-							}
-							else if(op == Token.Exponent)
-							{
-								x = 2;
-								if(j == 0)
-								{
-									result = tempVal;
-									result = Math.Pow(tempStack.Pop(), result);
-								}
-							}
-							j++;
-						}
-						resultTemp.Push(result);
+						prevResult -= 1;
+						result -= 1;
 					}
-					doubleOP = true;
-					x = 0;
-					//For adding times it is still using the same result I need to figure out a way to stop this 
+					finalNumbers.Push(prevResult);
+					prevResult = 1; //Reset so when adding multiple multiplications it does not get exponentially bigger. 
+					addition = false;
+
+					//Checking if the next token is an operator, and if so operating on the values in the finalNumbers stack4
+					try
+					{
+						if (Tokenizer.isOp(tokens[pos + 1]) == true)
+						{
+							doubleOp = true;
+							pos++;
+							op = tokens[pos].Type;
+							double temp = 0;
+							if (op == "+") addition = true;
+							while (finalNumbers.Count > 0)
+							{
+								double tempVal = finalNumbers.Pop();
+								if (op == "+")
+								{
+									temp += tempVal;
+								}
+							}
+							//Having to use a different result value as if result is used then it will still have the values of ALL the multiplications within it
+							doubleResult += temp;
+							if(addition == true && doubleRan == false)
+							{
+								doubleResult -= 1;
+							}
+							doubleRan = true;
+						}
+					}
+					catch
+					{
+						break; //This needs to be updated to stop using this really 
+					}
 				}
-				else if(Tokenizer.returnType(tokens.Peek()) == Token.Number)
+				//Adding numbers onto the temp stack to be dealt with
+				if (tokens[pos].Type == "Number")
 				{
-					doubleOP = false;
-					while (tokens.Peek() == Token.Number)
-					{
-						tokens.Pop();
-						tempStack.Push(tokenizerNumbers[i]);
-						i++;
-					}
-					//If the number of numbers is odd then do not reset result to 1 in the times statement.
-					//It has to be reset to 1 for 2*5+4*5 otherwise the second value on finaltemp will be incorrect
-					if(i % 2 != 0)
-					{
-						tempAdd = false;
-					}
+					numbers.Push(tokens[pos].Data);
 				}
 			}
-
-			return result;
+			//Returning depening on what type of operations had to take place
+			if (doubleOp == true)
+			{
+				return doubleResult;
+			}
+			else
+			{
+				return result;
+			}
 		}
 	}   
 }

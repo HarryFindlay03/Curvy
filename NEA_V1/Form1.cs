@@ -26,15 +26,16 @@ namespace NEA_V1
 			int x = int.Parse(txt_xRange.Text);
 			int y = int.Parse(txt_yRange.Text);
 
+			Parser p = new Parser(new Tokenizer(str));
+			Console.WriteLine("Final Result: " + p.Eval());
+
+
 			//Stack<string> stack = InfixToPostfix.infixToPostfix(str);
 
 			//while(stack.Count > 0)
 			//{
-				//Console.WriteLine(stack.Pop());
+			//Console.WriteLine(stack.Pop());
 			//}
-
-			Parser p = new Parser(new Tokenizer(str));
-			Console.WriteLine(p.Eval());
 
 			//Draw d = new Draw(pictureBox1, str, x, y);
 			//d.Drawer();
