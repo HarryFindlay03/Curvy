@@ -92,7 +92,7 @@ namespace NEA_V1
 				}
 				if (int.TryParse(stackVar, out int n))
 				{
-					tokens.Add(new Token("Number", n));
+					tokens.Add(new Token("n", n));
 				}
 
 			}

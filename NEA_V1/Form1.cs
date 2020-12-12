@@ -28,17 +28,20 @@ namespace NEA_V1
 
 			Parser p = new Parser(new Tokenizer(str));
 			Console.WriteLine("Final Result: " + p.Eval());
+		}
 
+		private void Form1_Paint(object sender, PaintEventArgs e)
+		{
+			//Drawing the x and y axes
+			//Origin = 800,400
+			Pen startPen = new Pen(Color.Black, 3);
+			e.Graphics.DrawLine(startPen, 500, 400, 1100, 400);
+			e.Graphics.DrawLine(startPen, 800, 100, 800, 700);
+		}
 
-			//Stack<string> stack = InfixToPostfix.infixToPostfix(str);
-
-			//while(stack.Count > 0)
-			//{
-			//Console.WriteLine(stack.Pop());
-			//}
-
-			//Draw d = new Draw(pictureBox1, str, x, y);
-			//d.Drawer();
+		private void Form1_MouseMove(object sender, MouseEventArgs e)
+		{
+			lbl_MousePos.Text = (e.Location.X + " : " + e.Location.Y);
 		}
 	}
 }

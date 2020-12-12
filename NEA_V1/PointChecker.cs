@@ -21,7 +21,7 @@ namespace NEA_V1
 			xRange = x;
 			yRange = y;
 		}
-		/*
+		
 		public Point[] checkPoints()
 		{
 			Point[] onLine = new Point[xRange];
@@ -33,7 +33,6 @@ namespace NEA_V1
 				//x value being the setSubinval
 				Parser p = new Parser(new Tokenizer(myString, x));
 				double temp = p.Eval();
-			 
 				for(int y = 0; y < yRange; y++)
 				{
 					if(temp == y)
@@ -47,7 +46,7 @@ namespace NEA_V1
 			}
 			return onLine;   
 		}
-		*/
+		
 	}
 
 }

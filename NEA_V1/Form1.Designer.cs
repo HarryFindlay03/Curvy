@@ -32,8 +32,7 @@
             this.btn_submit = new System.Windows.Forms.Button();
             this.txt_xRange = new System.Windows.Forms.TextBox();
             this.txt_yRange = new System.Windows.Forms.TextBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.lbl_MousePos = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // txtBox_input
@@ -69,28 +68,30 @@
             this.txt_yRange.TabIndex = 4;
             this.txt_yRange.Text = "100";
             // 
-            // pictureBox1
+            // lbl_MousePos
             // 
-            this.pictureBox1.BackColor = System.Drawing.Color.White;
-            this.pictureBox1.Location = new System.Drawing.Point(212, 12);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(576, 426);
-            this.pictureBox1.TabIndex = 5;
-            this.pictureBox1.TabStop = false;
+            this.lbl_MousePos.AutoSize = true;
+            this.lbl_MousePos.Location = new System.Drawing.Point(9, 739);
+            this.lbl_MousePos.Name = "lbl_MousePos";
+            this.lbl_MousePos.Size = new System.Drawing.Size(57, 13);
+            this.lbl_MousePos.TabIndex = 5;
+            this.lbl_MousePos.Text = "MousePos";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.pictureBox1);
+            this.BackColor = System.Drawing.Color.White;
+            this.ClientSize = new System.Drawing.Size(1184, 761);
+            this.Controls.Add(this.lbl_MousePos);
             this.Controls.Add(this.txt_yRange);
             this.Controls.Add(this.txt_xRange);
             this.Controls.Add(this.btn_submit);
             this.Controls.Add(this.txtBox_input);
             this.Name = "Form1";
             this.Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseMove);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -102,7 +103,7 @@
         private System.Windows.Forms.Button btn_submit;
         private System.Windows.Forms.TextBox txt_xRange;
         private System.Windows.Forms.TextBox txt_yRange;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label lbl_MousePos;
     }
 }
 
