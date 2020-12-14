@@ -16,6 +16,7 @@ namespace NEA_V1
 		public Form1()
 		{
 			InitializeComponent();
+			drawAxes();
 			//pictureBox1.Image = new Bitmap(pictureBox1.Width, pictureBox1.Height);
 		}
 
@@ -26,17 +27,22 @@ namespace NEA_V1
 			int x = int.Parse(txt_xRange.Text);
 			int y = int.Parse(txt_yRange.Text);
 
-			Parser p = new Parser(new Tokenizer(str));
-			Console.WriteLine("Final Result: " + p.Eval());
+			Draw d = new Draw(pictureBox1, str, x, y);
+			d.Drawer();
 		}
 
-		private void Form1_Paint(object sender, PaintEventArgs e)
+		private void drawAxes()
 		{
-			//Drawing the x and y axes
-			//Origin = 800,400
-			Pen startPen = new Pen(Color.Black, 3);
-			e.Graphics.DrawLine(startPen, 500, 400, 1100, 400);
-			e.Graphics.DrawLine(startPen, 800, 100, 800, 700);
+			//Need a way to make this permanent.
+			pictureBox1.Image = new Bitmap(pictureBox1.Width, pictureBox1.Height);
+			Pen pen = new Pen(Color.Black, 3);
+			using(var g = Graphics.FromImage(pictureBox1.Image))
+			{
+				//Drawing Axes
+				g.DrawLine(pen, 0, pictureBox1.Height / 2, pictureBox1.Width, pictureBox1.Height / 2);
+				g.DrawLine(pen, pictureBox1.Width / 2, 0, pictureBox1.Width / 2, pictureBox1.Height);
+				//Draw GridLines
+			}
 		}
 
 		private void Form1_MouseMove(object sender, MouseEventArgs e)

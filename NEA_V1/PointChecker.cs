@@ -22,23 +22,23 @@ namespace NEA_V1
 			yRange = y;
 		}
 		
-		public Point[] checkPoints()
+		public List<Point> checkPoints()
 		{
-			Point[] onLine = new Point[xRange];
+			List<Point> onLine = new List<Point>(); //Need a dynamic size hence why using a list. 
 
 			//The coordinates used to loop through will eventually be linked to a scale so they can be drawn!
 			int arrTemp = 0;
-			for (int x = 0; x < xRange; x++)
+			for (int x = -xRange; x < xRange; x++)
 			{
 				//x value being the setSubinval
 				Parser p = new Parser(new Tokenizer(myString, x));
 				double temp = p.Eval();
-				for(int y = 0; y < yRange; y++)
+				for(int y = -yRange; y < yRange; y++)
 				{
 					if(temp == y)
 					{
 						Console.WriteLine("Point ({0}, {1}) is on the curve.", x, y);
-						onLine[arrTemp] = new Point(x, y);
+						onLine.Add(new Point(x, y)); 
 						arrTemp++;
 					}
 				}

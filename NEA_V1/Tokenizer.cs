@@ -32,9 +32,9 @@ namespace NEA_V1
 
 		List<Token> tokens = new List<Token>();
 
-		double subIn;
+		int subIn;
 
-		public Tokenizer(string str, double subIn)
+		public Tokenizer(string str, int subIn)
 		{
 			myStack = InfixToPostfix.infixToPostfix(str);
 			this.subIn = subIn;
@@ -45,12 +45,6 @@ namespace NEA_V1
 			myStack = InfixToPostfix.infixToPostfix(str);
 			this.subIn = 1; //Default value of subin
 			NextToken();
-		}
-
-
-		public double getSubInVal()
-		{
-			return subIn;
 		}
 
 		public void NextToken()

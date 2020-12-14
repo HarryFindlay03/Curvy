@@ -55,7 +55,7 @@ namespace NEA_V1
 				{
 					l = result.Pop();
 					r = result.Pop();
-					ans = Math.Pow(l, r);
+					ans = Math.Pow(r, l);
 					result.Push(ans);
 				}
 				else //is a number
