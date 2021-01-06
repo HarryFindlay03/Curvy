@@ -37,7 +37,7 @@ namespace NEA_V1
 				{
 					if(temp == y)
 					{
-						Console.WriteLine("Point ({0}, {1}) is on the curve.", x, y);
+						//Console.WriteLine("Point ({0}, {1}) is on the curve.", x, y);
 						onLine.Add(new Point(x, y)); 
 						arrTemp++;
 					}
