@@ -37,6 +37,9 @@
             this.txtBox_input2 = new System.Windows.Forms.TextBox();
             this.txtBox_input3 = new System.Windows.Forms.TextBox();
             this.txtBox_input4 = new System.Windows.Forms.TextBox();
+            this.btn_integrate = new System.Windows.Forms.Button();
+            this.txt_lim1 = new System.Windows.Forms.TextBox();
+            this.txt_lim2 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -112,12 +115,39 @@
             this.txtBox_input4.Size = new System.Drawing.Size(100, 20);
             this.txtBox_input4.TabIndex = 9;
             // 
+            // btn_integrate
+            // 
+            this.btn_integrate.Location = new System.Drawing.Point(12, 145);
+            this.btn_integrate.Name = "btn_integrate";
+            this.btn_integrate.Size = new System.Drawing.Size(75, 23);
+            this.btn_integrate.TabIndex = 10;
+            this.btn_integrate.Text = "Integrate";
+            this.btn_integrate.UseVisualStyleBackColor = true;
+            this.btn_integrate.Click += new System.EventHandler(this.btn_integrate_Click);
+            // 
+            // txt_lim1
+            // 
+            this.txt_lim1.Location = new System.Drawing.Point(109, 148);
+            this.txt_lim1.Name = "txt_lim1";
+            this.txt_lim1.Size = new System.Drawing.Size(29, 20);
+            this.txt_lim1.TabIndex = 11;
+            // 
+            // txt_lim2
+            // 
+            this.txt_lim2.Location = new System.Drawing.Point(144, 148);
+            this.txt_lim2.Name = "txt_lim2";
+            this.txt_lim2.Size = new System.Drawing.Size(29, 20);
+            this.txt_lim2.TabIndex = 12;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1184, 761);
+            this.Controls.Add(this.txt_lim2);
+            this.Controls.Add(this.txt_lim1);
+            this.Controls.Add(this.btn_integrate);
             this.Controls.Add(this.txtBox_input4);
             this.Controls.Add(this.txtBox_input3);
             this.Controls.Add(this.txtBox_input2);
@@ -147,6 +177,9 @@
         private System.Windows.Forms.TextBox txtBox_input2;
         private System.Windows.Forms.TextBox txtBox_input3;
         private System.Windows.Forms.TextBox txtBox_input4;
+        private System.Windows.Forms.Button btn_integrate;
+        private System.Windows.Forms.TextBox txt_lim1;
+        private System.Windows.Forms.TextBox txt_lim2;
     }
 }
 

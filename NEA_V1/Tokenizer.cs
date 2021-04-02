@@ -24,8 +24,6 @@ namespace NEA_V1
 		}
 	}
 	
-		
-
 	public class Tokenizer
 	{
 		Stack<string> myStack;

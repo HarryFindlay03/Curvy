@@ -46,8 +46,13 @@ namespace NEA_V1
 				strs.Add(txtBox_input4.Text);
 			}
 
+			Calc c = new Calc(strs[0]);
+			c.diff();
+
 			Draw d = new Draw(pictureBox1, strs, x, y);
 			d.Drawer();
+
+
 		}
 
 		private void drawAxes()
@@ -71,6 +76,15 @@ namespace NEA_V1
 		private void Form1_MouseMove(object sender, MouseEventArgs e)
 		{
 			lbl_MousePos.Text = (e.Location.X + " : " + e.Location.Y);
+		}
+
+		private void btn_integrate_Click(object sender, EventArgs e)
+		{
+			int lim1 = int.Parse(txt_lim1.Text);
+			int lim2 = int.Parse(txt_lim2.Text);
+
+			Calc c = new Calc(txtBox_input1.Text);
+			Console.WriteLine(c.trapeziumIntegrate(lim1, lim2));
 		}
 	}
 }

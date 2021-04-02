@@ -26,7 +26,6 @@ namespace NEA_V1
 		public void Drawer()
 		{
 			List<List<Point>> points = new List<List<Point>>(); //List of point lists created by point checker.
-			Console.WriteLine(points.Count.ToString());
 			for(int i = 0; i < equations.Count; i++)
 			{
 				PointChecker pc = new PointChecker(equations[i], x, y);
