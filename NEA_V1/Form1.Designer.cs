@@ -33,14 +33,9 @@
             this.txt_xRange = new System.Windows.Forms.TextBox();
             this.txt_yRange = new System.Windows.Forms.TextBox();
             this.lbl_MousePos = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.txtBox_input2 = new System.Windows.Forms.TextBox();
-            this.txtBox_input3 = new System.Windows.Forms.TextBox();
-            this.txtBox_input4 = new System.Windows.Forms.TextBox();
             this.btn_integrate = new System.Windows.Forms.Button();
             this.txt_lim1 = new System.Windows.Forms.TextBox();
             this.txt_lim2 = new System.Windows.Forms.TextBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // txtBox_input1
@@ -49,10 +44,11 @@
             this.txtBox_input1.Name = "txtBox_input1";
             this.txtBox_input1.Size = new System.Drawing.Size(100, 20);
             this.txtBox_input1.TabIndex = 0;
+            this.txtBox_input1.Text = "x^2";
             // 
             // btn_submit
             // 
-            this.btn_submit.Location = new System.Drawing.Point(12, 116);
+            this.btn_submit.Location = new System.Drawing.Point(12, 38);
             this.btn_submit.Name = "btn_submit";
             this.btn_submit.Size = new System.Drawing.Size(75, 23);
             this.btn_submit.TabIndex = 2;
@@ -62,7 +58,7 @@
             // 
             // txt_xRange
             // 
-            this.txt_xRange.Location = new System.Drawing.Point(139, 12);
+            this.txt_xRange.Location = new System.Drawing.Point(118, 12);
             this.txt_xRange.Name = "txt_xRange";
             this.txt_xRange.Size = new System.Drawing.Size(30, 20);
             this.txt_xRange.TabIndex = 3;
@@ -70,7 +66,7 @@
             // 
             // txt_yRange
             // 
-            this.txt_yRange.Location = new System.Drawing.Point(175, 12);
+            this.txt_yRange.Location = new System.Drawing.Point(154, 12);
             this.txt_yRange.Name = "txt_yRange";
             this.txt_yRange.Size = new System.Drawing.Size(29, 20);
             this.txt_yRange.TabIndex = 4;
@@ -85,39 +81,9 @@
             this.lbl_MousePos.TabIndex = 5;
             this.lbl_MousePos.Text = "MousePos";
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Cross;
-            this.pictureBox1.Location = new System.Drawing.Point(224, 12);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(948, 740);
-            this.pictureBox1.TabIndex = 6;
-            this.pictureBox1.TabStop = false;
-            // 
-            // txtBox_input2
-            // 
-            this.txtBox_input2.Location = new System.Drawing.Point(12, 38);
-            this.txtBox_input2.Name = "txtBox_input2";
-            this.txtBox_input2.Size = new System.Drawing.Size(100, 20);
-            this.txtBox_input2.TabIndex = 7;
-            // 
-            // txtBox_input3
-            // 
-            this.txtBox_input3.Location = new System.Drawing.Point(12, 64);
-            this.txtBox_input3.Name = "txtBox_input3";
-            this.txtBox_input3.Size = new System.Drawing.Size(100, 20);
-            this.txtBox_input3.TabIndex = 8;
-            // 
-            // txtBox_input4
-            // 
-            this.txtBox_input4.Location = new System.Drawing.Point(12, 90);
-            this.txtBox_input4.Name = "txtBox_input4";
-            this.txtBox_input4.Size = new System.Drawing.Size(100, 20);
-            this.txtBox_input4.TabIndex = 9;
-            // 
             // btn_integrate
             // 
-            this.btn_integrate.Location = new System.Drawing.Point(12, 145);
+            this.btn_integrate.Location = new System.Drawing.Point(12, 76);
             this.btn_integrate.Name = "btn_integrate";
             this.btn_integrate.Size = new System.Drawing.Size(75, 23);
             this.btn_integrate.TabIndex = 10;
@@ -127,14 +93,14 @@
             // 
             // txt_lim1
             // 
-            this.txt_lim1.Location = new System.Drawing.Point(109, 148);
+            this.txt_lim1.Location = new System.Drawing.Point(93, 79);
             this.txt_lim1.Name = "txt_lim1";
             this.txt_lim1.Size = new System.Drawing.Size(29, 20);
             this.txt_lim1.TabIndex = 11;
             // 
             // txt_lim2
             // 
-            this.txt_lim2.Location = new System.Drawing.Point(144, 148);
+            this.txt_lim2.Location = new System.Drawing.Point(128, 79);
             this.txt_lim2.Name = "txt_lim2";
             this.txt_lim2.Size = new System.Drawing.Size(29, 20);
             this.txt_lim2.TabIndex = 12;
@@ -148,10 +114,6 @@
             this.Controls.Add(this.txt_lim2);
             this.Controls.Add(this.txt_lim1);
             this.Controls.Add(this.btn_integrate);
-            this.Controls.Add(this.txtBox_input4);
-            this.Controls.Add(this.txtBox_input3);
-            this.Controls.Add(this.txtBox_input2);
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.lbl_MousePos);
             this.Controls.Add(this.txt_yRange);
             this.Controls.Add(this.txt_xRange);
@@ -159,8 +121,9 @@
             this.Controls.Add(this.txtBox_input1);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseMove);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -173,10 +136,6 @@
         private System.Windows.Forms.TextBox txt_xRange;
         private System.Windows.Forms.TextBox txt_yRange;
         private System.Windows.Forms.Label lbl_MousePos;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.TextBox txtBox_input2;
-        private System.Windows.Forms.TextBox txtBox_input3;
-        private System.Windows.Forms.TextBox txtBox_input4;
         private System.Windows.Forms.Button btn_integrate;
         private System.Windows.Forms.TextBox txt_lim1;
         private System.Windows.Forms.TextBox txt_lim2;

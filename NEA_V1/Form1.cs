@@ -16,61 +16,39 @@ namespace NEA_V1
 		public Form1()
 		{
 			InitializeComponent();
-			drawAxes();
+			//drawAxes();
 			//pictureBox1.Image = new Bitmap(pictureBox1.Width, pictureBox1.Height);
 		}
 
 		private void btn_submit_Click(object sender, EventArgs e)
 		{
-			List<string> strs = new List<string>();
 
 			int x = int.Parse(txt_xRange.Text);
 			int y = int.Parse(txt_yRange.Text);
 
-			//****Check if the text box is not empty if so -> add the text of textbox to the strs List.****
 
-			if(!string.IsNullOrEmpty(txtBox_input1.Text))
-			{
-				strs.Add(txtBox_input1.Text);
-			}
-			if (!string.IsNullOrEmpty(txtBox_input2.Text))
-			{
-				strs.Add(txtBox_input2.Text);
-			}
-			if (!string.IsNullOrEmpty(txtBox_input3.Text))
-			{
-				strs.Add(txtBox_input3.Text);
-			}
-			if (!string.IsNullOrEmpty(txtBox_input4.Text))
-			{
-				strs.Add(txtBox_input4.Text);
-			}
-
-			Calc c = new Calc(strs[0]);
+			Calc c = new Calc(txtBox_input1.Text);
 			c.diff();
 
-			Draw d = new Draw(pictureBox1, strs, x, y);
-			d.Drawer();
+			//calls the paint event
+			this.Invalidate();
 
 
 		}
 
-		private void drawAxes()
+		private void drawAxes(PaintEventArgs e)
 		{
-			//Need a way to make this permanent.
-			pictureBox1.Image = new Bitmap(pictureBox1.Width, pictureBox1.Height);
 			Pen pen = new Pen(Color.Black, 3);
-			using(var g = Graphics.FromImage(pictureBox1.Image))
+			//Main axes through the centre
+			e.Graphics.DrawLine(pen, 0, this.Height / 2, this.Width, this.Height / 2);
+			e.Graphics.DrawLine(pen, this.Width / 2, 0, this.Width / 2, this.Height);
+
+			//Smaller sub gridlines
+			for(int i = 1; i < 10; i++)
 			{
-				//Drawing Axes
-				g.DrawLine(pen, 0, pictureBox1.Height / 2, pictureBox1.Width, pictureBox1.Height / 2);
-				g.DrawLine(pen, pictureBox1.Width / 2, 0, pictureBox1.Width / 2, pictureBox1.Height);
-				//Draw GridLines
+				e.Graphics.DrawLine(Pens.Gray, 0, this.Height / 10 * i, this.Width, this.Height / 10 * i);
+				e.Graphics.DrawLine(Pens.Gray, this.Width / 10 * i, 0, this.Width / 10 * i, this.Height);
 			}
-			Bitmap bmp = new Bitmap(pictureBox1.ClientSize.Width, pictureBox1.ClientSize.Height);
-			pictureBox1.DrawToBitmap(bmp, pictureBox1.ClientRectangle);
-			bmp.Save(@"E:\Main Files\School\Computer Science\NEA\NEA Upload\NEA_V1\NEA_V1\NEA_V1\temp\temp.bmp");
-			bmp.Dispose();
 		}
 
 		private void Form1_MouseMove(object sender, MouseEventArgs e)
@@ -85,6 +63,17 @@ namespace NEA_V1
 
 			Calc c = new Calc(txtBox_input1.Text);
 			Console.WriteLine(c.trapeziumIntegrate(lim1, lim2));
+		}
+
+		private void Form1_Load(object sender, EventArgs e)
+		{
+			//this.Paint += Form1_Paint;
+		}
+
+		private void Form1_Paint(object sender, PaintEventArgs e)
+		{
+			drawAxes(e);
+			Draw.DrawerTest(e, txtBox_input1.Text, int.Parse(txt_xRange.Text), int.Parse(txt_yRange.Text), this.Width, this.Height);
 		}
 	}
 }

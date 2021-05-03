@@ -69,7 +69,7 @@ namespace NEA_V1
 			{
 				result = result + vals[x];
 			}
-			double finResult = 0.5 * interval * (vals[0] + vals[vals.Count - 1] + 2 * (result));
+			double finResult = 0.5 * interval * (vals[0] + vals[vals.Count - 1] + 2 * (result)); //trapezium rule 
 
 			return finResult;
 		}

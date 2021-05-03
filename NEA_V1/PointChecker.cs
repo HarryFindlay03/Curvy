@@ -27,7 +27,7 @@ namespace NEA_V1
 			List<Point> onLine = new List<Point>(); //Need a dynamic size hence why using a list. 
 
 			//The coordinates used to loop through will eventually be linked to a scale so they can be drawn!
-			int arrTemp = 0;
+			//int arrTemp = 0;
 			for (int x = -xRange; x < xRange; x++)
 			{
 				//x value being the setSubinval
@@ -39,7 +39,7 @@ namespace NEA_V1
 					{
 						//Console.WriteLine("Point ({0}, {1}) is on the curve.", x, y);
 						onLine.Add(new Point(x, y)); 
-						arrTemp++;
+						//arrTemp++;
 					}
 				}
 				
