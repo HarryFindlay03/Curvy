@@ -22,18 +22,8 @@ namespace NEA_V1
 
 		private void btn_submit_Click(object sender, EventArgs e)
 		{
-
-			int x = int.Parse(txt_xRange.Text);
-			int y = int.Parse(txt_yRange.Text);
-
-
-			Calc c = new Calc(txtBox_input1.Text);
-			c.diff();
-
 			//calls the paint event
 			this.Invalidate();
-
-
 		}
 
 		private void drawAxes(PaintEventArgs e)

@@ -30,9 +30,9 @@ namespace NEA_V1
 
 		List<Token> tokens = new List<Token>();
 
-		int subIn;
+		double subIn;
 
-		public Tokenizer(string str, int subIn)
+		public Tokenizer(string str, double subIn)
 		{
 			myStack = InfixToPostfix.infixToPostfix(str);
 			this.subIn = subIn;
@@ -82,7 +82,7 @@ namespace NEA_V1
 				{
 					tokens.Add(new Token("^"));
 				}
-				if (int.TryParse(stackVar, out int n))
+				if (double.TryParse(stackVar, out double n))
 				{
 					tokens.Add(new Token("n", n));
 				}
