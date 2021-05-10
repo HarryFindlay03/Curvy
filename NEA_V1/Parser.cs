@@ -34,7 +34,7 @@ namespace NEA_V1
 				{
 					l = result.Pop();
 					r = result.Pop();
-					ans = l / r;
+					ans = r / l;
 					result.Push(ans);
 				}
 				else if (c == "+")
@@ -48,7 +48,7 @@ namespace NEA_V1
 				{
 					l = result.Pop();
 					r = result.Pop();
-					ans = l - r;
+					ans = r - l;
 					result.Push(ans);
 				}
 				else if(c == "^")
